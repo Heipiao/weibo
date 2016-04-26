@@ -35,4 +35,5 @@ def GetCode(userid,passwd):
     resp = urllib2.urlopen(req)
     return resp.geturl()[-32:]
 if __name__ == "__main__":
+	print "lala"
     print GetCode("15029357121","liu8315")
