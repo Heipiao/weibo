@@ -68,6 +68,7 @@ def make_access_token():
         code = return_redirect_uri.split('=')[1]  
     #得到token  
     token = client.request_access_token(code,REDIRECT_URL)  
+    print token
     save_access_token(token)  
   
 def save_access_token(token):  
@@ -117,7 +118,7 @@ def apply_access_token():
     return True  
   
 if __name__ == "__main__":  
-    apply_access_token()  
+    make_access_token()  
   
     # 以下为访问微博api的应用逻辑  
     # 以发布文字微博接口为例
