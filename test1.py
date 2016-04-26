@@ -11,6 +11,6 @@ with open('token.json', 'r') as f:
 access_token = r["access_token"]
 expires_in = r["expires_at"]
 client.set_access_token(access_token, expires_in)
-raw_data  = client.statuses.public_timeline.get(count=200)
-for st in raw_data.statuses:
-    print st.encode("utf-8").text
+raw_data  = client.get('statuses/public_timeline', count=200)
+for x in range(200):
+    print(str(raw_data['statuses'][x]['text']))
