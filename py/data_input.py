@@ -1,6 +1,8 @@
 #coding=utf-8
 from weibo import APIClient
+from kafka import KafkaProducer
 import json
+
 
 APP_KEY = "3722673574"
 APP_SECRET = "3686fea0a65da883b6c2a7586f350425"
@@ -13,4 +15,9 @@ access_token = r["access_token"]
 expires_in = r["expires_at"]
 client.set_access_token(access_token, expires_in)
 raw_data  = client.statuses.public_timeline.get()
-print raw_data.statuses[1].text.encode("utf-8") 
+
+producer = KafkaProducer()
+text = raw_data.statuses[1].text.encode("utf-8")
+print text 
+producer.send('test',text)
+producer.flush()
