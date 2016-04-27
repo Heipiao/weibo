@@ -1,4 +1,4 @@
-#coding=utf-8
+
 from weibo import APIClient
 from kafka import KafkaProducer
 
@@ -20,18 +20,19 @@ producer = KafkaProducer()
 # put data into kafka
 def put_data_kafka():
     raw_data  = client.statuses.public_timeline.get()
-    for x in range(0,len(raw_data)):
-    	print raw_data.statuses[1].text.encode("utf-8") 
-        text = raw_data.statuses[1].text.encode("utf-8")
-        producer.send('test',text)
+    for x in range(5):
+    	#print raw_data.statuses[1].text.encode("utf-8") 
+        text = raw_data.statuses[x].text.encode("utf-8")
+        producer.send('test',text)#this do not work i don't know why
         producer.flush()
 
 # aviod the too-fast
 def control_pace():
-	i = 1
+    i = 1
     while i <= 50:
         put_data_kafka()
         i += 1
         time.sleep(10) # sleep 10 seconds
 
 control_pace()
+
